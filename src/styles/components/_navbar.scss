@@ -1,0 +1,20 @@
+@use "../abstracts/variables" as variables;
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-bottom: variables.$mercury solid 1px;
+}
+
+.navbar__logo {
+    width: 113px;
+    object-fit: contain;
+}
+
+.navbar__slideshow--start {
+    font-size: 15px;
+    font-weight: bold;
+    color: variables.$primary-text-color;
+}

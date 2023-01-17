@@ -1,11 +1,12 @@
 import "./styles/app.scss"
-
+import './Navbar'
+import Navbar from "./Navbar"
 function App() {
 
 
   return (
     <div className="App">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod dolorem, consequatur laboriosam quia tempore excepturi eveniet sapiente optio ex, necessitatibus beatae iure dolor. Ad ullam quas est veniam, cumque nemo?</p>
+      <Navbar/>
     </div>
   )
 }
