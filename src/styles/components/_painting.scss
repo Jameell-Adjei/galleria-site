@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as variables;
+.image {
+    display: block;
+}
+
+.painting {
+    position: relative;
+    display: inline-block;
+    margin: 1rem;
+}
+
+.painting__title {
+    padding-bottom: 0.3rem;
+    font-size: 1.5rem;
+}
+
+.painting__artist {
+    font-size: 13px;
+    color: variables.$concrete;
+}
+.painting__info {
+    position: absolute;
+    bottom: 4px;
+    padding: 2rem;
+    color: variables.$white;
+    background: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.85));
+}
