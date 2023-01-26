@@ -3,10 +3,23 @@
     display: block;
 }
 
+.painting__image{
+    width: 100%;
+    display: block;
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .painting {
     position: relative;
     display: inline-block;
     margin: 1rem;
+    width: auto;
+    max-width: 327px;
 }
 
 .painting__title {
@@ -16,11 +29,13 @@
 
 .painting__artist {
     font-size: 13px;
-    color: variables.$concrete;
+    color: variables.$white;
+    opacity: 0.7528;
 }
 .painting__info {
+   width: 100%;
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     padding: 2rem;
     color: variables.$white;
     background: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.85));
