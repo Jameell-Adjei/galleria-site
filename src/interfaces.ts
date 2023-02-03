@@ -1,5 +1,6 @@
 export interface Image {
-    picture: string
-    title: string,
-    artist: string
+  id: number;
+  picture: string;
+  title: string;
+  artist: string;
 }

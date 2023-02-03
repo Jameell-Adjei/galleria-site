@@ -1,5 +1,7 @@
 import { Image } from "./interfaces";
-const Painting: React.FC<Image> = ({ picture, artist, title }) => {
+
+const Painting: React.FC<Image> = ({ picture, artist, title, id }) => {
+
   return (
     <picture className="painting">
       <img  className="painting__image" src={picture} alt={`Painting of ${title}`} srcSet="" />
