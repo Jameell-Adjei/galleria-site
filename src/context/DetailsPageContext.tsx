@@ -1,3 +1,4 @@
+import { createContext, ReactElement, useReducer, useCallback, useContext } from "react";
 import data from "../../src/data.json";
 import { Image } from "../interfaces";
 
@@ -10,7 +11,17 @@ interface DetailsPageState {
 interface DetailsPageAction  {
   type: string;
   payload?: number;
-};
+}
+
+interface Children {
+  children?:  ReactElement[] | ReactElement | undefined
+}
+
+interface useDetailsContext {
+  state: DetailsPageState;
+  updateIndex: (id: number) => void;
+  setSlide: () => void;
+}
 
 const INITIAL_STATE: DetailsPageState = {
   currentIndex: 0,
@@ -51,7 +62,6 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
       };
     }
     case "SET_CURRENT_SLIDE": {
-      console.log(state, state.slides, state.currentSlide);
       return {
         ...state,
         currentSlide: state.slides[state.currentIndex],
