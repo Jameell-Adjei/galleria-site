@@ -3,7 +3,7 @@ import { Image } from "../interfaces";
 
 interface DetailsPageState {
   currentIndex: number;
-  slides: any[];
+  slides: Image[];
   currentSlide: Image;
 }
 
@@ -13,13 +13,28 @@ interface DetailsPageAction  {
 };
 
 const INITIAL_STATE: DetailsPageState = {
-  currentIndex: 5,
+  currentIndex: 0,
   slides: data,
+
   currentSlide: {
-    id: -1,
-    picture: "",
-    title: "",
-    artist: "",
+    id: 0,
+    name: "",
+    year: 0,
+    description: "",
+    source: "",
+    images: {
+      hero: {
+        small: "",
+        large: ""
+      },
+      thumbnail: "",
+      gallery: ""
+    },
+    artist: {
+      image: "",
+      name: ""
+    },
+
   },
 };
 
