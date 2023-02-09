@@ -71,3 +71,42 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
       return state;
   }
 };
+
+const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
+  const [state , dispatch] = useReducer(reducer , intialState);
+
+  const updateIndex = useCallback((id: number) => dispatch({type:"SET_CURRENT_INDEX", payload: id}), []);
+
+  const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
+
+  return { state, updateIndex , setSlide }
+
+}
+
+const initalContextState: useDetailsContext = {
+  state: INITIAL_STATE,
+  updateIndex: (id: number) =>{},
+  setSlide: () => {}
+}
+
+export const DetailsContext = createContext<useDetailsContext>(initalContextState);
+
+export const DetailsPageProvider = ({
+  children
+}: Children): ReactElement =>{
+  return (
+    <DetailsContext.Provider value={useDetailsContext(INITIAL_STATE)}>
+      {children}
+    </DetailsContext.Provider>
+  )
+}
+
+export const useDetails = (): useDetailsContext => {
+  const {state, setSlide, updateIndex } = useContext(DetailsContext);
+  return { state, setSlide, updateIndex }
+}
+
+export const useCurrentSlide = () => {
+  const {state : { currentSlide, currentIndex }, setSlide, updateIndex } = useContext(DetailsContext);
+  return { currentSlide, currentIndex, setSlide, updateIndex }
+}
