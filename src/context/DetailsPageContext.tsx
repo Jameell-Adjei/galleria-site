@@ -52,8 +52,7 @@ const INITIAL_STATE: DetailsPageState = {
 const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPageState=> {
   switch (action.type) {
     case "SET_CURRENT_INDEX": {
-      console.log(action);
-      if (!action.payload) {
+      if (action.payload === null || action.payload === undefined) {
         return state;
       }
       return {
