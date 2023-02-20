@@ -13,7 +13,6 @@ const DetailsPage = () => {
   return (
     <>
       <main className="detailsPage">
-        <section>
           <picture className="detailsPage__image-container">
             <img id='detailsPage__image' src={currentSlide.images.hero.small} alt="" srcSet="" />
           </picture>
@@ -22,7 +21,6 @@ const DetailsPage = () => {
             <p id="detailsPage__artist-name">{currentSlide.artist.name}</p>          
           </div>
           <img id="detailsPage__artist-image" src={currentSlide.artist.image} alt="" />
-        </section>
         <section className="detailsPage__painting-overview">
           <h2 id="detailsPage_painting-year">{currentSlide.year}</h2>
           <p id="detailsPage_painting-desc">{currentSlide.description}</p>
