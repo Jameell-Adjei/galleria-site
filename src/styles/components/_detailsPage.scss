@@ -8,7 +8,10 @@
     color: variables.$boulder;
     font-size: 15px;
 }
-
+#detailsPage__artist-image {
+    width: 64px;
+    margin-left: 1rem;
+}
 .detailsPage__image-container, #detailsPage__image {
     max-width: 100%;
 }
@@ -21,7 +24,7 @@
     background-color: white;
     width: 85%;
     height: 120px;
-    max-width: 500px; // was 600px before
+    max-width: 500px;
     padding: 0 1.2rem;
     display: flex;
     flex-direction: column;
@@ -32,3 +35,24 @@
     }
 }
 
+.detailsPage__painting-overview {
+    position: relative;
+}
+
+#detailsPage_painting-year{
+    position: absolute;
+    font-size: 100px;
+    top: 0;
+    right: 0;
+    line-height: 100px;
+    color: #F3F3F3;
+    z-index: -1;
+}
+
+#detailsPage_painting-desc{
+    line-height: 28px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 76px;
+    color: variables.$boulder;
+}
