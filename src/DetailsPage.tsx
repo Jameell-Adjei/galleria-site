@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useCurrentSlide } from "./context/DetailsPageContext"
+import ProgressBar from "./ProgressBar";
 
 const DetailsPage = () => {
     const { currentSlide, currentIndex , setSlide, updateIndex } = useCurrentSlide();
@@ -25,8 +26,8 @@ const DetailsPage = () => {
           <h2 id="detailsPage_painting-year">{currentSlide.year}</h2>
           <p id="detailsPage_painting-desc">{currentSlide.description}</p>
         </section>
-      
-      </main>    
+      </main>  
+      <ProgressBar/>  
     </>
   )
 }
