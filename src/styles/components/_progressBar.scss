@@ -1,7 +1,15 @@
 #progress-bar {
+    display: flex;
     padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.progress-bar__button-container {
+    display: flex;
+    gap: 0 1rem;
+}
 #progress-bar__painting {
     font-size: 14px;
     padding: 0.5rem 0;
