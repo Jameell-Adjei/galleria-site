@@ -1,16 +1,21 @@
-import "./styles/app.scss"
-import './Navbar'
-import Navbar from "./Navbar"
-import ImageContainer from "./ImageContainer"
+import Navbar from "./Navbar";
+import "./styles/app.scss";
+import { DetailsPageProvider } from "./context/DetailsPageContext";
+import { Outlet } from "react-router-dom";
+
+
+
 function App() {
-
-
   return (
-    <div className="App">
-      <Navbar/>
-      <ImageContainer/>
-    </div>
-  )
+    <>
+      <DetailsPageProvider>
+        <div className="App">
+          <Navbar/>
+          <Outlet/>
+        </div>
+      </DetailsPageProvider>
+    </>
+  );
 }
 
-export default App
+export default App;

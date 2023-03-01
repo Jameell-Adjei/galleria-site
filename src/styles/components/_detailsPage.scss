@@ -1,0 +1,67 @@
+@use "../abstracts/variables";
+
+.detailsPage{
+    display: grid;
+    grid-template-rows: auto minmax(70px, min-content) min-content max-content;
+    padding: 1rem;
+}
+
+#detailsPage__artist-name {
+    color: variables.$boulder;
+    font-size: 15px;
+}
+#detailsPage__artist-image {
+    width: 64px;
+    margin-left: 1rem;
+}
+
+.detailsPage__image-container{
+    grid-row: 1/3;
+    grid-column: 2/1;    
+}
+.detailsPage__image-container, #detailsPage__image {
+    max-width: 100%;
+}
+
+#detailsPage__image {
+    display: block;
+}
+
+.detailsPage__painting-info {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    background-color: white;
+    width: 85%;
+    height: 120px;
+    max-width: 500px;
+    padding: 0 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+        padding-bottom: 0.5rem;
+    }
+}
+
+.detailsPage__painting-overview {
+    position: relative;
+}
+
+#detailsPage_painting-year{
+    position: absolute;
+    font-size: 100px;
+    top: 0;
+    right: 0;
+    line-height: 100px;
+    color: #F3F3F3;
+    z-index: -1;
+}
+
+#detailsPage_painting-desc{
+    line-height: 28px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 76px;
+    color: variables.$boulder;
+}

@@ -1,13 +1,19 @@
 import { Image } from "./interfaces";
-const Painting: React.FC<Image> = ({ picture, artist, title }) => {
+import { Link } from "react-router-dom";
+import { useCurrentSlide } from "./context/DetailsPageContext"
+
+const Painting: React.FC<Image> = ({ artist, name, id , images }) => {
+  const { updateIndex } = useCurrentSlide();
   return (
-    <picture className="painting">
-      <img  className="painting__image" src={picture} alt={`Painting of ${title}`} srcSet="" />
-      <div className="painting__info">
-        <h2 className="painting__title">{title}</h2>
-        <h5 className="painting__artist">{artist}</h5>
-      </div>
-    </picture>
+    <Link to={'/slideshow'} onClick={()=> updateIndex(id ? id : 0)}>
+      <picture className="painting">
+        <img  className="painting__image" src={images.thumbnail} alt={`Painting of ${name}`} srcSet="" />
+        <div className="painting__info">
+          <h2 className="painting__title">{name}</h2>
+          <h5 className="painting__artist">{artist.name}</h5>
+        </div>
+      </picture>
+    </Link>
   );
 };
 
