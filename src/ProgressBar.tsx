@@ -3,7 +3,9 @@ import { ReactComponent as BackButton } from  "./assets/shared/icon-back-button.
 import { ReactComponent as NextButton } from  "./assets/shared/icon-next-button.svg";
 
 const ProgressBar = () => {
-  const { currentSlide } = useCurrentSlide();
+  const { currentSlide , updateIndex } = useCurrentSlide();
+  let { currentIndex } = useCurrentSlide();
+
   return (
     <section id="progress-bar">
       <div>
@@ -11,8 +13,12 @@ const ProgressBar = () => {
         <p id="progress-bar__artist">{currentSlide.artist.name}</p>
       </div>
       <div className="progress-bar__button-container">
-        <BackButton/>
-        <NextButton/>
+        <BackButton onClick={() =>{
+            updateIndex(currentIndex -= 1)            
+        }}/>
+        <NextButton onClick={()=>{
+            updateIndex(currentIndex += 1)
+        }}/>
       </div>
     </section>
   );
