@@ -68,6 +68,22 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         currentSlide: state.slides[state.currentIndex],
       };
     }
+    case "SET_SSID" :{
+      if (action.payload === null || action.payload === undefined) {
+        return state;
+      }      
+
+      return {
+        ...state,
+        slideShowID: action.payload
+      }
+    }
+    case "RESET_SSID" :{     
+      return {
+        ...state,
+        slideShowID: 0
+      }
+    }    
     default:
       return state;
   }
