@@ -149,3 +149,8 @@ export const useCurrentSlide = () => {
   const {state : { currentSlide, currentIndex }, setSlide, updateIndex } = useContext(DetailsContext);
   return { currentSlide, currentIndex, setSlide, updateIndex }
 }
+
+export const useSlideShow = () => {
+  const { state : { slideShowID }, startSlideshow, stopSlideshow } = useContext(DetailsContext);
+  return { slideShowID, startSlideshow, stopSlideshow }
+}
