@@ -4,7 +4,8 @@ import { Image } from "../interfaces";
 
 interface DetailsPageState {
   currentIndex: number;
-  slides: Image[];
+  slideShowID: number;
+  readonly slides: Image[];
   currentSlide: Image;
 }
 
@@ -21,12 +22,14 @@ interface useDetailsContext {
   state: DetailsPageState;
   updateIndex: (id: number) => void;
   setSlide: () => void;
+  startSlideshow: ()=>void;
+  stopSlideshow: ()=>void;
 }
 
 const INITIAL_STATE: DetailsPageState = {
   currentIndex: 0,
+  slideShowID:  0,
   slides: data,
-
   currentSlide: {
     id: 0,
     name: "",
@@ -45,7 +48,6 @@ const INITIAL_STATE: DetailsPageState = {
       image: "",
       name: ""
     },
-
   },
 };
 
