@@ -140,9 +140,9 @@ export const DetailsPageProvider = ({
   )
 }
 
-export const useDetails = (): useDetailsContext => {
-  const {state, setSlide, updateIndex } = useContext(DetailsContext);
-  return { state, setSlide, updateIndex }
+export const useDetails = ():useDetailsContext => {
+  const {state, setSlide, updateIndex ,startSlideshow, stopSlideshow} = useContext(DetailsContext);
+  return { state, setSlide, updateIndex , startSlideshow, stopSlideshow}
 }
 
 export const useCurrentSlide = () => {
