@@ -96,14 +96,36 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
 
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
 
-  return { state, updateIndex , setSlide }
+  const startSlideshow = ()=> {
+    if(state.slideShowID === 0){
+      const num = setInterval(()=>{
+        if(state.currentIndex + 1 > state.slides.length - 1){
+         state.currentIndex = -1;
+        } 
+        updateIndex(state.currentIndex += 1)
+      }, 2000)
+      dispatch({type: "SET_SSID" , payload: num})
+    } else {
+      stopSlideshow();
+    }
+  }
+
+  const stopSlideshow = ()=>{
+    if(state.slideShowID !==0){
+      clearInterval(state.slideShowID);
+      dispatch({type: "RESET_SSID"});
+    }
+  }
+  return { state, updateIndex , setSlide , startSlideshow, stopSlideshow}
 
 }
 
 const initalContextState: useDetailsContext = {
   state: INITIAL_STATE,
   updateIndex: (id: number) =>{},
-  setSlide: () => {}
+  setSlide: () => {},
+  startSlideshow: ()=>{},
+  stopSlideshow: ()=>{}
 }
 
 export const DetailsContext = createContext<useDetailsContext>(initalContextState);
