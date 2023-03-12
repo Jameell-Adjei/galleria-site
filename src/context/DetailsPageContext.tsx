@@ -4,7 +4,8 @@ import { Image } from "../interfaces";
 
 interface DetailsPageState {
   currentIndex: number;
-  slides: Image[];
+  slideShowID: number;
+  readonly slides: Image[];
   currentSlide: Image;
 }
 
@@ -21,12 +22,14 @@ interface useDetailsContext {
   state: DetailsPageState;
   updateIndex: (id: number) => void;
   setSlide: () => void;
+  startSlideshow: ()=>void;
+  stopSlideshow: ()=>void;
 }
 
 const INITIAL_STATE: DetailsPageState = {
   currentIndex: 0,
+  slideShowID:  0,
   slides: data,
-
   currentSlide: {
     id: 0,
     name: "",
@@ -45,7 +48,6 @@ const INITIAL_STATE: DetailsPageState = {
       image: "",
       name: ""
     },
-
   },
 };
 
@@ -66,6 +68,22 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         currentSlide: state.slides[state.currentIndex],
       };
     }
+    case "SET_SSID" :{
+      if (action.payload === null || action.payload === undefined) {
+        return state;
+      }      
+
+      return {
+        ...state,
+        slideShowID: action.payload
+      }
+    }
+    case "RESET_SSID" :{     
+      return {
+        ...state,
+        slideShowID: 0
+      }
+    }    
     default:
       return state;
   }
@@ -78,14 +96,36 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
 
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
 
-  return { state, updateIndex , setSlide }
+  const startSlideshow = ()=> {
+    if(state.slideShowID === 0){
+      const num = setInterval(()=>{
+        if(state.currentIndex + 1 > state.slides.length - 1){
+         state.currentIndex = -1;
+        } 
+        updateIndex(state.currentIndex += 1)
+      }, 2000)
+      dispatch({type: "SET_SSID" , payload: num})
+    } else {
+      stopSlideshow();
+    }
+  }
+
+  const stopSlideshow = ()=>{
+    if(state.slideShowID !==0){
+      clearInterval(state.slideShowID);
+      dispatch({type: "RESET_SSID"});
+    }
+  }
+  return { state, updateIndex , setSlide , startSlideshow, stopSlideshow}
 
 }
 
 const initalContextState: useDetailsContext = {
   state: INITIAL_STATE,
   updateIndex: (id: number) =>{},
-  setSlide: () => {}
+  setSlide: () => {},
+  startSlideshow: ()=>{},
+  stopSlideshow: ()=>{}
 }
 
 export const DetailsContext = createContext<useDetailsContext>(initalContextState);
@@ -100,12 +140,17 @@ export const DetailsPageProvider = ({
   )
 }
 
-export const useDetails = (): useDetailsContext => {
-  const {state, setSlide, updateIndex } = useContext(DetailsContext);
-  return { state, setSlide, updateIndex }
+export const useDetails = ():useDetailsContext => {
+  const {state, setSlide, updateIndex ,startSlideshow, stopSlideshow} = useContext(DetailsContext);
+  return { state, setSlide, updateIndex , startSlideshow, stopSlideshow}
 }
 
 export const useCurrentSlide = () => {
   const {state : { currentSlide, currentIndex }, setSlide, updateIndex } = useContext(DetailsContext);
   return { currentSlide, currentIndex, setSlide, updateIndex }
+}
+
+export const useSlideShow = () => {
+  const { state : { slideShowID }, startSlideshow, stopSlideshow } = useContext(DetailsContext);
+  return { slideShowID, startSlideshow, stopSlideshow }
 }
