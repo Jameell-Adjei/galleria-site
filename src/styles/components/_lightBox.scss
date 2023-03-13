@@ -1,0 +1,28 @@
+.lightBox {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top : 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    img {
+        max-width: 100%;
+    }
+
+    div {
+        position: relative;
+    }
+}
+
+.lightBox-text {
+    color: white;
+    display: block;
+    width: 100%;
+    padding-bottom: 2rem;
+    text-align: right;
+    letter-spacing: 3px;
+}
