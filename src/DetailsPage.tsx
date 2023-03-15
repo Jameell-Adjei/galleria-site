@@ -36,7 +36,8 @@ const DetailsPage = () => {
         <section className="detailsPage__painting-overview">
           <h2 id="detailsPage_painting-year">{currentSlide.year}</h2>
           <p id="detailsPage_painting-desc">{currentSlide.description}</p>
-        </section>
+          <a className="detailsPage_painting-overview--link" target={"_blank"} href={currentSlide.source}>GO TO SOURCE</a>
+        </section>   
       </main>  
       <LightBox/> 
       <ProgressBar/>     
