@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 #progress-bar {
     position: relative;
     display: flex;
@@ -5,6 +7,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    .progress-bar--button{
+        transition: all 0.2s ease-in-out;
+        stroke: black;
+        &:hover {
+            stroke: variables.$boulder;
+            cursor: pointer;            
+        }
+    }
 }
 
 .progress-bar__button-container {
@@ -24,4 +35,10 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    stroke: variables.$mercury;
 }
