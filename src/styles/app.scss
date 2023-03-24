@@ -1,5 +1,6 @@
 @use './base';
 @use './abstracts/variables';
+@use './abstracts/mixins';
 @use './components/navbar';
 @use './components/painting';
 @use './components/detailsPage';
