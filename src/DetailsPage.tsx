@@ -18,7 +18,8 @@ const DetailsPage = () => {
     <>
       <main className="detailsPage">
           <picture className="detailsPage__image-container">
-            <img id='detailsPage__image' src={currentSlide.images.hero.small} alt="" srcSet="" />
+            <source media="(min-width: 768px)" srcSet={`${currentSlide.images.hero.large}`}/>
+            <img id='detailsPage__image' src={currentSlide.images.hero.small} alt=""/>
             <button className="detailsPage_lightBox-Button" onClick={changeLightBox}> 
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.71407 0L9.21407 1.5L6.85693 3.85714L8.14264 5.14285L10.4998 2.78571L11.9998 4.28571V0H7.71407Z" fill="white"/>
