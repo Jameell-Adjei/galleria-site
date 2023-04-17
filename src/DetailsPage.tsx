@@ -15,7 +15,7 @@ const DetailsPage = () => {
       setSlide()
     },[currentIndex])
   return (
-    <>
+    <div className="grid-container">
       <main className="detailsPage">
           <picture className="detailsPage__image-container">
             <source media="(min-width: 768px)" srcSet={`${currentSlide.images.hero.large}`}/>
@@ -42,7 +42,7 @@ const DetailsPage = () => {
       </main>  
       <LightBox/> 
       <ProgressBar/>     
-    </>
+    </div>
 
   )
 }
