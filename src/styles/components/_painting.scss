@@ -38,6 +38,7 @@
     @media (hover: hover) {
         &:hover::after {
             opacity: 1;
+            cursor: pointer;
         }
     }
 

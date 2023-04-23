@@ -154,8 +154,17 @@
     display: inline-block;
     font-weight: bold;
     transition: color 0.4s ease-in-out;
-    &:hover {
-        color: variables.$secondary-color;
+
+    @include mixins.breakpoint("laptopUp"){
+        margin: 0; 
+        position: absolute; 
+        top: 88%;        
+    }
+    @media (hover: hover){    
+        &:hover {
+            color: variables.$secondary-color;
+            cursor: pointer;
+        }
     }
 }
 
@@ -178,9 +187,14 @@
     letter-spacing: 2.14px;
     font-size: 10px;
     transition: background-color 0.4s ease-in-out; 
-    &:hover{
-        background-color: rgba(white, 0.252);
+
+    @media (hover: hover){
+        &:hover{
+            background-color: rgba(white, 0.252);
+            cursor: pointer;
+        }
     }
+
     @include mixins.breakpoint("tabletUp"){
         top: 80%
     }
