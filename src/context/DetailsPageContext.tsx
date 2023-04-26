@@ -22,6 +22,9 @@ interface useDetailsContext {
   state: DetailsPageState;
   updateIndex: (id: number) => void;
   setSlide: () => void;
+  resetCurrentIndex: () => void;
+  incrementCurrentIndex: ()  => void;
+  decrementCurrentIndex: ()  => void;
   startSlideshow: ()=>void;
   stopSlideshow: ()=>void;
 }
@@ -62,6 +65,21 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         currentIndex: action.payload,
       };
     }
+
+    case "INCREMENT_CURRENT_INDEX": {
+      return {
+        ...state,
+        currentIndex: state.currentIndex++
+      }
+    }
+
+    case "DECREMENT_CURRENT_INDEX": {
+      return {
+        ...state,
+        currentIndex: state.currentIndex--
+      }
+    }
+
     case "SET_CURRENT_SLIDE": {
       return {
         ...state,
@@ -83,7 +101,14 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         ...state,
         slideShowID: 0
       }
-    }    
+    }
+    
+    case "RESET_CURRENT_INDEX" : {
+      return {
+        ...state,
+        currentIndex: 0
+      }
+    }
     default:
       return state;
   }
@@ -93,30 +118,30 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
   const [state , dispatch] = useReducer(reducer , intialState);
 
   const updateIndex = useCallback((id: number) => dispatch({type:"SET_CURRENT_INDEX", payload: id}), []);
-
+  const incrementCurrentIndex = useCallback(()=> dispatch({type: "INCREMENT_CURRENT_INDEX"}),[])
+  const decrementCurrentIndex = useCallback(()=> dispatch({type: "DECREMENT_CURRENT_INDEX"}),[])
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
+  const resetCurrentIndex = useCallback(()=> dispatch({type: "RESET_CURRENT_INDEX"}),[])
 
   const startSlideshow = ()=> {
     if(state.slideShowID === 0){
       const num = setInterval(()=>{
         if(state.currentIndex + 1 > state.slides.length - 1){
-         state.currentIndex = -1;
+          updateIndex(state.currentIndex = -1);
         } 
         updateIndex(state.currentIndex += 1)
       }, 2000)
       dispatch({type: "SET_SSID" , payload: num})
-    } else {
-      stopSlideshow();
-    }
+    } 
   }
 
   const stopSlideshow = ()=>{
-    if(state.slideShowID !==0){
+    if(state.slideShowID !== 0){
       clearInterval(state.slideShowID);
       dispatch({type: "RESET_SSID"});
     }
   }
-  return { state, updateIndex , setSlide , startSlideshow, stopSlideshow}
+  return { state, updateIndex , setSlide , resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow}
 
 }
 
@@ -124,6 +149,9 @@ const initalContextState: useDetailsContext = {
   state: INITIAL_STATE,
   updateIndex: (id: number) =>{},
   setSlide: () => {},
+  resetCurrentIndex: () => {},
+  incrementCurrentIndex: ()=>{},
+  decrementCurrentIndex: ()=>{},
   startSlideshow: ()=>{},
   stopSlideshow: ()=>{}
 }
@@ -141,16 +169,16 @@ export const DetailsPageProvider = ({
 }
 
 export const useDetails = ():useDetailsContext => {
-  const {state, setSlide, updateIndex ,startSlideshow, stopSlideshow} = useContext(DetailsContext);
-  return { state, setSlide, updateIndex , startSlideshow, stopSlideshow}
+  const {state, setSlide, updateIndex, resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow} = useContext(DetailsContext);
+  return { state, setSlide, updateIndex , resetCurrentIndex, incrementCurrentIndex, decrementCurrentIndex, startSlideshow, stopSlideshow}
 }
 
 export const useCurrentSlide = () => {
-  const {state : { currentSlide, currentIndex }, setSlide, updateIndex } = useContext(DetailsContext);
-  return { currentSlide, currentIndex, setSlide, updateIndex }
+  const {state : { currentSlide, currentIndex }, setSlide, updateIndex, incrementCurrentIndex, decrementCurrentIndex } = useContext(DetailsContext);
+  return { currentSlide, currentIndex, setSlide, updateIndex, incrementCurrentIndex, decrementCurrentIndex }
 }
 
 export const useSlideShow = () => {
-  const { state : { slideShowID }, startSlideshow, stopSlideshow } = useContext(DetailsContext);
-  return { slideShowID, startSlideshow, stopSlideshow }
+  const { state : { slideShowID }, startSlideshow, stopSlideshow , resetCurrentIndex } = useContext(DetailsContext);
+  return { slideShowID, startSlideshow, stopSlideshow, resetCurrentIndex }
 }
