@@ -1,6 +1,14 @@
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 
+
+.grid-container {
+    min-height: calc(100vh - variables.$navbar-height); //Fallback in case of no browser support for dvh
+    min-height: calc(100dvh - variables.$navbar-height);
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
 .detailsPage{
     display: grid;
     grid-template-rows: auto minmax(70px, min-content) min-content max-content;
@@ -9,6 +17,11 @@
         grid-template-columns: minmax(210px, min-content) minmax(min-content, 400px);
         grid-template-rows: minmax(auto, 128px) minmax(300px, min-content) max-content;
         justify-content: center;
+    }
+
+    @include mixins.breakpoint("laptopUp"){
+        grid-template-columns: minmax(380px, min-content) minmax(min-content, 400px) minmax(min-content, 390px);
+        padding: 6rem 0;
     }
 }
 
@@ -25,6 +38,11 @@
         grid-area: 2/2;
         justify-self: end;
         align-self: start;
+    }
+    @include mixins.breakpoint("laptopUp"){
+        justify-self: auto;
+        align-self: end;
+        margin-left: 4rem;
     }
 }
 
@@ -81,6 +99,13 @@
         grid-column: 1/ span 2;
         grid-row: 3/auto;
     }
+
+    @include mixins.breakpoint("laptopUp"){
+        grid-area: 1/3;
+        grid-row: 1/span 2;
+        justify-self: center;
+        align-self: auto;
+    }
 }
 
 #detailsPage_painting-year{
@@ -96,6 +121,12 @@
         top: 22px;
         left: -67px;
     }
+
+    @include mixins.breakpoint("laptopUp"){
+        top: 33px;
+        left: -38px;
+        z-index: 2;
+    }
 }
 
 #detailsPage_painting-desc{
@@ -104,6 +135,15 @@
     font-size: 14px;
     margin-top: 76px;
     color: variables.$primary-text-color;
+    @include mixins.breakpoint("laptopUp"){
+        margin-top: 124px;
+        max-width: 390px;
+        
+    }
+    @include mixins.breakpoint("laptopUp"){
+        position: relative;
+        z-index: 2;
+    }
 }
 
 .detailsPage_painting-overview--link{
@@ -114,8 +154,17 @@
     display: inline-block;
     font-weight: bold;
     transition: color 0.4s ease-in-out;
-    &:hover {
-        color: variables.$secondary-color;
+
+    @include mixins.breakpoint("laptopUp"){
+        margin: 0; 
+        position: absolute; 
+        top: 88%;        
+    }
+    @media (hover: hover){    
+        &:hover {
+            color: variables.$secondary-color;
+            cursor: pointer;
+        }
     }
 }
 
@@ -138,9 +187,14 @@
     letter-spacing: 2.14px;
     font-size: 10px;
     transition: background-color 0.4s ease-in-out; 
-    &:hover{
-        background-color: rgba(white, 0.252);
+
+    @media (hover: hover){
+        &:hover{
+            background-color: rgba(white, 0.252);
+            cursor: pointer;
+        }
     }
+
     @include mixins.breakpoint("tabletUp"){
         top: 80%
     }

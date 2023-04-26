@@ -11,9 +11,11 @@
     .progress-bar--button{
         transition: all 0.2s ease-in-out;
         stroke: black;
-        &:hover {
-            stroke: variables.$boulder;
-            cursor: pointer;
+        @media (hover: hover) {
+            &:hover {
+                stroke: variables.$boulder;
+                cursor: pointer;
+            }
         }
     }
 }
@@ -35,6 +37,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    transition: all 0.7s ease;
 }
 
 .disabled {

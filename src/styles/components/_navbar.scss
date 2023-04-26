@@ -6,6 +6,7 @@
     align-items: center;
     padding: 1.5rem 1rem;
     border-bottom: variables.$mercury solid 1px;
+    height: variables.$navbar-height;
 }
 
 .navbar__logo {
@@ -17,4 +18,11 @@
     font-size: 15px;
     font-weight: bold;
     color: variables.$primary-text-color;
+    transition: color 0.3s ease;
+    @media (hover: hover) {
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
 }

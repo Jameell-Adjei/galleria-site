@@ -4,7 +4,7 @@ import { ReactComponent as NextButton } from  "./assets/shared/icon-next-button.
 import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
-  const { currentSlide , updateIndex } = useCurrentSlide();
+  const { currentSlide, incrementCurrentIndex, decrementCurrentIndex } = useCurrentSlide();
   let { currentIndex } = useCurrentSlide();
   const { state } = useDetails();
 
@@ -37,11 +37,11 @@ const ProgressBar = () => {
       </div>
       
       <div className="progress-bar__button-container">
-      <BackButton className={`${disabled ? "disabled" : "progress-bar--button"}`} onClick={() =>{
-            updateIndex(currentIndex -= 1)            
+      <BackButton className={`${disabled ? "disabled" : "progress-bar--button"}`} onClick={() =>{  
+           decrementCurrentIndex();        
         }}/>
         <NextButton className={`${rightDisabled ? "disabled" : "progress-bar--button"}`} onClick={()=>{
-            updateIndex(currentIndex += 1)
+          incrementCurrentIndex();
         }}/>
       </div>
     </section>
