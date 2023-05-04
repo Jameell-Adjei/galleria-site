@@ -7,6 +7,7 @@ interface DetailsPageState {
   slideShowID: number;
   readonly slides: Image[];
   currentSlide: Image;
+  direction: boolean;
 }
 
 interface DetailsPageAction  {
@@ -33,6 +34,7 @@ const INITIAL_STATE: DetailsPageState = {
   currentIndex: 0,
   slideShowID:  0,
   slides: data,
+  direction: true,
   currentSlide: {
     id: 0,
     name: "",
@@ -86,6 +88,15 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         currentSlide: state.slides[state.currentIndex],
       };
     }
+    case "SET_DIRECTION" :{
+      if (action.payload === null || action.payload === undefined) {
+        return state;
+      }
+      return {
+        ...state,
+        direction: !!action.payload
+      }      
+    }
     case "SET_SSID" :{
       if (action.payload === null || action.payload === undefined) {
         return state;
@@ -118,8 +129,8 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
   const [state , dispatch] = useReducer(reducer , intialState);
 
   const updateIndex = useCallback((id: number) => dispatch({type:"SET_CURRENT_INDEX", payload: id}), []);
-  const incrementCurrentIndex = useCallback(()=> dispatch({type: "INCREMENT_CURRENT_INDEX"}),[])
-  const decrementCurrentIndex = useCallback(()=> dispatch({type: "DECREMENT_CURRENT_INDEX"}),[])
+  const incrementCurrentIndex = useCallback(()=> {dispatch({type: "INCREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 1})},[])
+  const decrementCurrentIndex = useCallback(()=> {dispatch({type: "DECREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 0})},[])
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
   const resetCurrentIndex = useCallback(()=> dispatch({type: "RESET_CURRENT_INDEX"}),[])
 
