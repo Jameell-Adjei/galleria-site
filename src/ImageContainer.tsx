@@ -1,7 +1,8 @@
 import data from "./data.json";
 import Painting from "./Painting";
 import Macy from 'macy';
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
+import { animate, stagger } from "framer-motion"
 
 const macyOptions = {
     container: '.imageContainer',
@@ -20,10 +21,14 @@ const macyOptions = {
     }
 }
 
+
 const ImageContainer = () => {
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     new Macy(macyOptions);
+    animate(".painting",{ opacity: [0,1] }, { delay: stagger(0.25) })
   },[])
+
+
   return (
     <div className="imageContainer">
       {data.map((el, index) => (
