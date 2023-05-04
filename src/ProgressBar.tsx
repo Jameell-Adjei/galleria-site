@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
   const { currentSlide, incrementCurrentIndex, decrementCurrentIndex } = useCurrentSlide();
-  let { currentIndex } = useCurrentSlide();
+  const { currentIndex } = useCurrentSlide();
   const { state } = useDetails();
 
   let amountSeen = (currentIndex + 1)/state.slides.length;
@@ -13,9 +13,9 @@ const ProgressBar = () => {
   const [rightDisabled ,setRightDisabled] = useState<boolean>(false);
 
   useEffect(()=>{
-    if(state.currentIndex === 0){
+    if(currentIndex === 0){
       setDisabled(true);
-    } else if(state.currentIndex === state.slides.length - 1){
+    } else if(currentIndex === state.slides.length - 1){
       setRightDisabled(true);
     }
 
@@ -24,7 +24,7 @@ const ProgressBar = () => {
       setDisabled(false);
       setRightDisabled(false);
     }
-  },[state.currentIndex])
+  },[currentIndex])
   
   return (
     <section id="progress-bar">
@@ -38,7 +38,7 @@ const ProgressBar = () => {
       
       <div className="progress-bar__button-container">
       <BackButton className={`${disabled ? "disabled" : "progress-bar--button"}`} onClick={() =>{  
-           decrementCurrentIndex();        
+          decrementCurrentIndex();       
         }}/>
         <NextButton className={`${rightDisabled ? "disabled" : "progress-bar--button"}`} onClick={()=>{
           incrementCurrentIndex();
