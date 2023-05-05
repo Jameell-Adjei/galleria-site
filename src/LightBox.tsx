@@ -12,7 +12,7 @@ const LightBox = () => {
           <span className="lightBox-text">CLOSE</span>
           <picture>
             <source media="(min-width: 768px)" srcSet={`${currentSlide.images.gallery}`}/> 
-            <img src={currentSlide.images.thumbnail} alt="" srcSet="" /> 
+            <img src={currentSlide.images.thumbnail} alt={`Painting of ${currentSlide.name} by ${currentSlide.artist.name}`} srcSet="" /> 
           </picture>
 
         </div> 
