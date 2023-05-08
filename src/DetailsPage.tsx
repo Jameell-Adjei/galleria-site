@@ -14,7 +14,7 @@ const DetailsPage = () => {
   
     useEffect(()=>{
       setSlide();
-      animate(".detailsPage",{ opacity: [0, 1], x: [state.direction ? -200: 200, 0]}, { duration: 0.5 } )
+      animate(".detailsPage",{ opacity: [0, 1], x: [state.direction ? -200: 200, 0]}, { type: "spring" } )
     },[currentIndex])
   return (
       <div className="grid-container">
