@@ -1,21 +1,19 @@
 import { createContext, ReactElement, useReducer, useCallback, useContext } from "react";
 import data from "../../src/data.json";
 import { Image } from "../interfaces";
+import { Children } from "../interfaces";
 
 interface DetailsPageState {
   currentIndex: number;
   slideShowID: number;
   readonly slides: Image[];
   currentSlide: Image;
+  direction: boolean;
 }
 
 interface DetailsPageAction  {
   type: string;
   payload?: number;
-}
-
-interface Children {
-  children?:  ReactElement[] | ReactElement | undefined
 }
 
 interface useDetailsContext {
@@ -33,6 +31,7 @@ const INITIAL_STATE: DetailsPageState = {
   currentIndex: 0,
   slideShowID:  0,
   slides: data,
+  direction: true,
   currentSlide: {
     id: 0,
     name: "",
@@ -86,6 +85,15 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
         currentSlide: state.slides[state.currentIndex],
       };
     }
+    case "SET_DIRECTION" :{
+      if (action.payload === null || action.payload === undefined) {
+        return state;
+      }
+      return {
+        ...state,
+        direction: !!action.payload
+      }      
+    }
     case "SET_SSID" :{
       if (action.payload === null || action.payload === undefined) {
         return state;
@@ -118,31 +126,27 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
   const [state , dispatch] = useReducer(reducer , intialState);
 
   const updateIndex = useCallback((id: number) => dispatch({type:"SET_CURRENT_INDEX", payload: id}), []);
-  const incrementCurrentIndex = useCallback(()=> dispatch({type: "INCREMENT_CURRENT_INDEX"}),[])
-  const decrementCurrentIndex = useCallback(()=> dispatch({type: "DECREMENT_CURRENT_INDEX"}),[])
+  const incrementCurrentIndex = useCallback(()=> {dispatch({type: "INCREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 1})},[])
+  const decrementCurrentIndex = useCallback(()=> {dispatch({type: "DECREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 0})},[])
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
   const resetCurrentIndex = useCallback(()=> dispatch({type: "RESET_CURRENT_INDEX"}),[])
 
   const startSlideshow = ()=> {
-    if(state.slideShowID === 0){
       const num = setInterval(()=>{
         if(state.currentIndex + 1 > state.slides.length - 1){
-          updateIndex(state.currentIndex = -1);
+          state.currentIndex = -1
         } 
-        updateIndex(state.currentIndex += 1)
-      }, 2000)
-      dispatch({type: "SET_SSID" , payload: num})
-    } 
+        updateIndex(state.currentIndex += 1) 
+      }, 5000)
+      dispatch({type: "SET_SSID" , payload: num}) 
   }
-
   const stopSlideshow = ()=>{
     if(state.slideShowID !== 0){
       clearInterval(state.slideShowID);
       dispatch({type: "RESET_SSID"});
     }
   }
-  return { state, updateIndex , setSlide , resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow}
-
+  return { state, updateIndex , setSlide , resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow }
 }
 
 const initalContextState: useDetailsContext = {
@@ -168,9 +172,9 @@ export const DetailsPageProvider = ({
   )
 }
 
-export const useDetails = ():useDetailsContext => {
-  const {state, setSlide, updateIndex, resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow} = useContext(DetailsContext);
-  return { state, setSlide, updateIndex , resetCurrentIndex, incrementCurrentIndex, decrementCurrentIndex, startSlideshow, stopSlideshow}
+export const useDetails = () => {
+  const { state } = useContext(DetailsContext);
+  return { state }
 }
 
 export const useCurrentSlide = () => {
