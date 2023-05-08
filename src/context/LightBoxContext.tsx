@@ -1,8 +1,6 @@
-import { createContext, ReactElement, useReducer, useCallback, useContext, Children } from "react";
+import { createContext, ReactElement, useReducer, useCallback, useContext } from "react";
+import { Children } from "../interfaces";
 
-interface Children {
-    children?:  ReactElement[] | ReactElement | undefined
-}
 
 interface LightBoxAction {
     type: string;
@@ -25,7 +23,7 @@ const reducer = (state: { open: boolean }, action: LightBoxAction)=>{
 const useLightBoxContext = (intialState: { open: boolean })=>{  
     const [state , dispatch] = useReducer(reducer , intialState);
 
-    const changeLightBox = ()=>{dispatch({type: "SET_OPEN"})};
+    const changeLightBox = useCallback(()=>dispatch({type: "SET_OPEN"}),[]);
 
     return { state , changeLightBox };
 }

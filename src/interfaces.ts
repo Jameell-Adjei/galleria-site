@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface Image {
   id?: number
   name: string;
@@ -22,4 +24,8 @@ export interface Painting_Images {
 export interface Hero {
   small: string;
   large: string;
+}
+
+export interface Children {
+  children?:  ReactElement[] | ReactElement | undefined
 }

@@ -1,6 +1,7 @@
 import { createContext, ReactElement, useReducer, useCallback, useContext } from "react";
 import data from "../../src/data.json";
 import { Image } from "../interfaces";
+import { Children } from "../interfaces";
 
 interface DetailsPageState {
   currentIndex: number;
@@ -13,10 +14,6 @@ interface DetailsPageState {
 interface DetailsPageAction  {
   type: string;
   payload?: number;
-}
-
-interface Children {
-  children?:  ReactElement[] | ReactElement | undefined
 }
 
 interface useDetailsContext {
@@ -175,9 +172,9 @@ export const DetailsPageProvider = ({
   )
 }
 
-export const useDetails = ():useDetailsContext => {
-  const {state, setSlide, updateIndex, resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow} = useContext(DetailsContext);
-  return { state, setSlide, updateIndex , resetCurrentIndex, incrementCurrentIndex, decrementCurrentIndex, startSlideshow, stopSlideshow}
+export const useDetails = () => {
+  const { state } = useContext(DetailsContext);
+  return { state }
 }
 
 export const useCurrentSlide = () => {
