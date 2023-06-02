@@ -21,8 +21,6 @@ interface useDetailsContext {
   updateIndex: (id: number) => void;
   setSlide: () => void;
   resetCurrentIndex: () => void;
-  incrementCurrentIndex: ()  => void;
-  decrementCurrentIndex: ()  => void;
   startSlideshow: ()=>void;
   stopSlideshow: ()=>void;
 }
@@ -65,34 +63,11 @@ const reducer = (state: DetailsPageState, action: DetailsPageAction):DetailsPage
       };
     }
 
-    case "INCREMENT_CURRENT_INDEX": {
-      return {
-        ...state,
-        currentIndex: state.currentIndex++
-      }
-    }
-
-    case "DECREMENT_CURRENT_INDEX": {
-      return {
-        ...state,
-        currentIndex: state.currentIndex--
-      }
-    }
-
     case "SET_CURRENT_SLIDE": {
       return {
         ...state,
         currentSlide: state.slides[state.currentIndex],
       };
-    }
-    case "SET_DIRECTION" :{
-      if (action.payload === null || action.payload === undefined) {
-        return state;
-      }
-      return {
-        ...state,
-        direction: !!action.payload
-      }      
     }
     case "SET_SSID" :{
       if (action.payload === null || action.payload === undefined) {
@@ -126,8 +101,6 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
   const [state , dispatch] = useReducer(reducer , intialState);
 
   const updateIndex = useCallback((id: number) => dispatch({type:"SET_CURRENT_INDEX", payload: id}), []);
-  const incrementCurrentIndex = useCallback(()=> {dispatch({type: "INCREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 1})},[])
-  const decrementCurrentIndex = useCallback(()=> {dispatch({type: "DECREMENT_CURRENT_INDEX"}); dispatch({type : "SET_DIRECTION", payload: 0})},[])
   const setSlide = useCallback(() => dispatch({type: "SET_CURRENT_SLIDE"}), []);
   const resetCurrentIndex = useCallback(()=> dispatch({type: "RESET_CURRENT_INDEX"}),[])
 
@@ -146,7 +119,7 @@ const useDetailsContext = (intialState: DetailsPageState):useDetailsContext => {
       dispatch({type: "RESET_SSID"});
     }
   }
-  return { state, updateIndex , setSlide , resetCurrentIndex, incrementCurrentIndex,  decrementCurrentIndex, startSlideshow, stopSlideshow }
+  return { state, updateIndex , setSlide , resetCurrentIndex,  startSlideshow, stopSlideshow };
 }
 
 const initalContextState: useDetailsContext = {
@@ -154,8 +127,6 @@ const initalContextState: useDetailsContext = {
   updateIndex: (id: number) =>{},
   setSlide: () => {},
   resetCurrentIndex: () => {},
-  incrementCurrentIndex: ()=>{},
-  decrementCurrentIndex: ()=>{},
   startSlideshow: ()=>{},
   stopSlideshow: ()=>{}
 }
@@ -178,8 +149,8 @@ export const useDetails = () => {
 }
 
 export const useCurrentSlide = () => {
-  const {state : { currentSlide, currentIndex }, setSlide, updateIndex, incrementCurrentIndex, decrementCurrentIndex } = useContext(DetailsContext);
-  return { currentSlide, currentIndex, setSlide, updateIndex, incrementCurrentIndex, decrementCurrentIndex }
+  const {state : { currentSlide, currentIndex }, setSlide, updateIndex } = useContext(DetailsContext);
+  return { currentSlide, currentIndex, setSlide, updateIndex }
 }
 
 export const useSlideShow = () => {
