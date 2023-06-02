@@ -4,17 +4,14 @@ import { useLightBox } from "./context/LightBoxContext";
 import { ReactComponent as ViewIcon } from './assets/shared/icon-view-image.svg';
 import ProgressBar from "./ProgressBar";
 import LightBox from "./LightBox" ;
-import { animate } from "framer-motion"
 
 
 const DetailsPage = () => {
     const { currentSlide, currentIndex , setSlide } = useCurrentSlide();
     const {  changeLightBox } = useLightBox();
-    const { state } = useDetails();
   
     useEffect(()=>{
       setSlide();
-      animate(".detailsPage",{ opacity: [0, 1], x: [state.direction ? -200: 200, 0]}, { type: "spring" } )
     },[currentIndex])
   return (
       <div className="grid-container">

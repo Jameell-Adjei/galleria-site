@@ -4,8 +4,8 @@ import { ReactComponent as NextButton } from  "./assets/shared/icon-next-button.
 import { useEffect, useState } from "react";
 
 const ProgressBar = () => {
-  const { currentSlide, incrementCurrentIndex, decrementCurrentIndex } = useCurrentSlide();
-  const { currentIndex } = useCurrentSlide();
+  const { currentSlide, updateIndex } = useCurrentSlide();
+  let { currentIndex } = useCurrentSlide();
   const { state } = useDetails();
 
   let amountSeen = (currentIndex + 1)/state.slides.length;
@@ -37,12 +37,8 @@ const ProgressBar = () => {
       </div>
       
       <div className="progress-bar__button-container">
-      <BackButton className={`${disabled ? "disabled" : "progress-bar--button"}`} onClick={() =>{  
-          decrementCurrentIndex();       
-        }}/>
-        <NextButton className={`${rightDisabled ? "disabled" : "progress-bar--button"}`} onClick={()=>{
-          incrementCurrentIndex();
-        }}/>
+        <BackButton className={`${disabled ? "disabled" : "progress-bar--button"}`}  onClick={()=>{updateIndex(currentIndex -= 1)}}/>
+        <NextButton className={`${rightDisabled ? "disabled" : "progress-bar--button"}`} onClick={()=>{updateIndex(currentIndex += 1)}}/>
       </div>
     </section>
   );
